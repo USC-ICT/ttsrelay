@@ -91,11 +91,11 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\lib\vhmsg\vhmsg-net\vhmsg-net.csproj">
+    <ProjectReference Include="..\vhmsg-net\vhmsg-net.csproj">
       <Project>{DE4240A9-DBBA-410F-888F-462384A5B280}</Project>
       <Name>vhmsg-net</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TtsRelay.csproj">
+    <ProjectReference Include="..\TtsRelay\TtsRelay.csproj">
       <Project>{20C3D8FC-B1E9-49B4-9BBB-485AA95F56D2}</Project>
       <Name>TtsRelay</Name>
     </ProjectReference>
