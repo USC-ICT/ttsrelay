@@ -181,9 +181,6 @@ copy /Y "$(VS140COMNTOOLS)\..\..\VC\redist\x86\Microsoft.VC140.CRT\msvcp140.dll"
 copy /Y "$(VS140COMNTOOLS)\..\..\VC\redist\x86\Microsoft.VC140.CRT\vcruntime140.dll" $(TargetDir)
 copy /Y "$(VS100COMNTOOLS)\..\..\VC\redist\x86\Microsoft.VC100.CRT\msvcp100.dll" $(TargetDir)
 copy /Y "$(VS100COMNTOOLS)\..\..\VC\redist\x86\Microsoft.VC100.CRT\msvcr100.dll" $(TargetDir)
-
-xcopy /Y /Q /E /I /D $(ProjectDir)\..\bin $(ProjectDir)\..\..\..\bin\TtsRelay\bin
-copy /Y $(ProjectDir)\..\run.bat $(ProjectDir)\..\..\..\bin\TtsRelay\
 </PostBuildEvent>
     <PostBuildEvent Condition=" '$(OS)' != 'Windows_NT' ">
 mkdir -p $(TargetDir)../../../../bin/core/TtsRelay/bin/Release

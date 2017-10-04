@@ -40,7 +40,7 @@ namespace TtsRelayGui
         private TtsRelay.TtsRelayComponent speechRelayComponent;
 
         private string m_visemeMapping = "sbm";
-        private string m_cacheFolder = "../../../../../data/cache/audio";
+        private string m_cacheFolder = "cache/audio";
 
         /// <summary>
         /// No constructor level initialization needed
