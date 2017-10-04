@@ -1,0 +1,8 @@
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS.ActiveMQ\build\net-2.0\debug\Apache.NMS.ActiveMQ.dll
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS.ActiveMQ\build\net-2.0\debug\Apache.NMS.ActiveMQ.pdb
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS.ActiveMQ\build\net-2.0\debug\Apache.NMS.dll
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS.ActiveMQ\build\net-2.0\debug\Ionic.Zlib.dll
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS.ActiveMQ\build\net-2.0\debug\Apache.NMS.pdb
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS.ActiveMQ\obj\Debug\vs2010-activemq.csprojResolveAssemblyReference.cache
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS.ActiveMQ\obj\Debug\Apache.NMS.ActiveMQ.dll
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS.ActiveMQ\obj\Debug\Apache.NMS.ActiveMQ.pdb

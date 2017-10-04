@@ -1,0 +1,5 @@
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS\build\net-2.0\release\Apache.NMS.dll
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS\build\net-2.0\release\Apache.NMS.pdb
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS\obj\Release\vs2010-nms.csprojResolveAssemblyReference.cache
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS\obj\Release\Apache.NMS.dll
+d:\edgit-tortoise\elsender\activemq-dotnet\Apache.NMS\obj\Release\Apache.NMS.pdb
