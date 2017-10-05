@@ -237,18 +237,28 @@ namespace TtsRelay
             }
             else if (splitargs[0] == "TTSRelay")
             {
-                // TTSRelay setmapping [facefx|sbm]
-                if (splitargs.Length >= 1 && splitargs[1] == "setmapping")
+                if (splitargs.Length >= 1)
                 {
-                    if (splitargs.Length >= 2)
+                    if (splitargs[1] == "setmapping")
                     {
-                        string visemeMapping = splitargs[2];
-                        SetVisemeMapping(visemeMapping);
+                        // TTSRelay setmapping [facefx|sbm]
+                        if (splitargs.Length >= 2)
+                        {
+                            string visemeMapping = splitargs[2];
+                            SetVisemeMapping(visemeMapping);
 
-                        Console.WriteLine(string.Format(@"Changing the viseme mapping to: {0}", visemeMapping));
+                            Console.WriteLine(string.Format(@"Changing the viseme mapping to: {0}", visemeMapping));
+                        }
+                    }
+                    else if (splitargs[1] == "queryvoices")
+                    {
+                        // TTSRelay queryvoices
+                        foreach (var voice in voicemap)
+                        {
+                            m_vhmsg.SendMessage(string.Format("TTSRelay queryvoicesreply {0}", voice.Key));
+                        }
                     }
                 }
-
             }
 
             return true;
@@ -449,7 +459,7 @@ namespace TtsRelay
                             xml.WriteAttributeString("time", v.Value.ToString());
                             xml.WriteEndElement();  // mark
 
-                            //Console.WriteLine("mark name='{0}' time='{1}'", v.Key, v.Value.ToString());
+                            //Console.WriteLine("mark name='{0}' time='{1}'", v.Key, v.Value);
                         }
                         else if (value.sortEnum == SortEnum.StartWord)
                         {
@@ -458,7 +468,7 @@ namespace TtsRelay
                             xml.WriteAttributeString("start", v.Key.ToString());
                             xml.WriteAttributeString("end", v.Value.ToString());
 
-                            //Console.WriteLine("word start='{0}' end='{1}'", v.Key.ToString(), v.Value.ToString());
+                            //Console.WriteLine("word start='{0}' end='{1}'", v.Key, v.Value);
                         }
                         else if (value.sortEnum == SortEnum.Viseme)
                         {
@@ -469,7 +479,7 @@ namespace TtsRelay
                             xml.WriteAttributeString("type", v.type);
                             xml.WriteEndElement();  // viseme
 
-                            //Console.WriteLine("viseme start='{0}' type='{1}'", v.Value.ToString(), v.Key);
+                            //Console.WriteLine("viseme start='{0}' type='{1}' articulation='{2}'", v.start, v.type, v.articulation);
                         }
                         else if (value.sortEnum == SortEnum.EndWord)
                         {
@@ -480,7 +490,6 @@ namespace TtsRelay
                     }
 
                     xml.WriteEndElement();  // speak
-                    //xml.WriteEndDocument();
                 }
 
                 xmlReply = output.ToString();
