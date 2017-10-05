@@ -459,7 +459,7 @@ namespace TtsRelay
                             xml.WriteAttributeString("time", v.Value.ToString());
                             xml.WriteEndElement();  // mark
 
-                            //Console.WriteLine("mark name='{0}' time='{1}'", v.Key, v.Value);
+                            Console.WriteLine("mark name='{0}' time='{1}'", v.Key, v.Value);
                         }
                         else if (value.sortEnum == SortEnum.StartWord)
                         {
@@ -468,7 +468,7 @@ namespace TtsRelay
                             xml.WriteAttributeString("start", v.Key.ToString());
                             xml.WriteAttributeString("end", v.Value.ToString());
 
-                            //Console.WriteLine("word start='{0}' end='{1}'", v.Key, v.Value);
+                            Console.WriteLine("word start='{0}' end='{1}'", v.Key, v.Value);
                         }
                         else if (value.sortEnum == SortEnum.Viseme)
                         {
@@ -479,13 +479,13 @@ namespace TtsRelay
                             xml.WriteAttributeString("type", v.type);
                             xml.WriteEndElement();  // viseme
 
-                            //Console.WriteLine("viseme start='{0}' type='{1}' articulation='{2}'", v.start, v.type, v.articulation);
+                            Console.WriteLine("viseme start='{0}' type='{1}' articulation='{2}'", v.start, v.type, v.articulation);
                         }
                         else if (value.sortEnum == SortEnum.EndWord)
                         {
                             xml.WriteEndElement();  // word
 
-                            //Console.WriteLine("word end");
+                            Console.WriteLine("word end");
                         }
                     }
 

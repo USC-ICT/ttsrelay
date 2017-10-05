@@ -192,6 +192,7 @@ namespace TtsRelay
 
             totalPhonemeDuration = 0;
             totalVisemeDuration = 0;
+            markerExists = false;
 
             if (doDebugChecks)
             {
@@ -199,7 +200,6 @@ namespace TtsRelay
             }
 
             bool allOk = true;
-            markerExists = false;
 
             // Adding this line to make the application compatible with the NeoSpeech Voice engine
             message = message.Replace("</speak>", ".</speak>");
@@ -359,8 +359,7 @@ namespace TtsRelay
                 if (vindex != e.Viseme)
                     Console.WriteLine("Viseme index truncated from {0} to {1}", e.Viseme, vindex);
 
-                Console.WriteLine("Reached viseme: {0} at time: {1} for duration: {2}", e.Viseme, e.AudioPosition.TotalSeconds, e.Duration);  // + " aka: " + visemeIDMap[vindex]
-                Console.WriteLine("Total viseme duration: {0}", totalVisemeDuration);
+                Console.WriteLine("Reached viseme: {0} at time: {1} for duration: {2} - totalVisemeDuration: {3}", e.Viseme, e.AudioPosition.TotalSeconds, e.Duration, totalVisemeDuration);  // + " aka: " + visemeIDMap[vindex]
             }
 
             // We should be able to just take the AudioPosition time, which denotes the point in the request the viseme starts,
@@ -416,8 +415,7 @@ namespace TtsRelay
 
             if (doDebugChecks)
             {
-                Console.WriteLine("Reached phoneme: {0} at time: {1} for duration: {2}", e.Phoneme, e.AudioPosition.TotalSeconds, e.Duration);
-                Console.WriteLine("Total phoneme duration: {0}", totalPhonemeDuration);
+                Console.WriteLine("Reached phoneme: {0} at time: {1} for duration: {2} - totalPhonemeDuration: {3}", e.Phoneme, e.AudioPosition.TotalSeconds, e.Duration, totalPhonemeDuration);
                 //byte[] b = System.Text.Encoding.Unicode.GetBytes(e.Phoneme.ToCharArray());
                 //Console.WriteLine("Chars for bytes: ");
                 //Console.WriteLine(System.Text.Encoding.ASCII.GetChars(b));
@@ -439,12 +437,22 @@ namespace TtsRelay
 
             if (doDebugChecks)
             {
-                Console.WriteLine("Reached bookmark: {0} at time: {1}", bookmark, e.AudioPosition.TotalSeconds);
+                Console.WriteLine("Reached bookmark: {0} at time: {1} - totalVisemeDuration: {2}", bookmark, e.AudioPosition.TotalSeconds, totalVisemeDuration);
             }
+
+            // HACK - prevent multiple bookmarks from having the same timestamp.  this can happen if marks are separated solely by punctuation. (no words in between to generate visemes)
+            //        if we don't do this, then the sorting logic is messed up when TtsRelay processes the output.
+            if (generateAudioReply.MarkList.Count > 0 && generateAudioReply.MarkList[generateAudioReply.MarkList.Count - 1].Value == totalVisemeDuration)
+                totalVisemeDuration += 0.0001f;
 
             // The provided AudioPosition is erroneous, so we're mannually keeping track of where we are using aggregate viseme duration.
             //generateAudioReply.MarkList.Add(new KeyValuePair<string, double>(bookmark, e.AudioPosition.TotalSeconds));
             generateAudioReply.MarkList.Add(new KeyValuePairS<string, double>(bookmark, totalVisemeDuration));
+
+            // HACK - prevent multiple bookmarks from having the same timestamp.  this can happen if marks are separated solely by punctuation. (no words in between to generate visemes)
+            //        if we don't do this, then the sorting logic is messed up when TtsRelay processes the output.
+            if (generateAudioReply.WordBreakList.Count > 0 && generateAudioReply.WordBreakList[generateAudioReply.WordBreakList.Count - 1].Value == totalVisemeDuration)
+                totalVisemeDuration += 0.0001f;
 
             /// Since we don't have a word beginning/ending callback, we resort
             /// to relying on the fact that each word in the SSML message is
