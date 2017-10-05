@@ -199,6 +199,7 @@ namespace TtsRelay
             }
 
             bool allOk = true;
+            markerExists = false;
 
             // Adding this line to make the application compatible with the NeoSpeech Voice engine
             message = message.Replace("</speak>", ".</speak>");
@@ -346,20 +347,20 @@ namespace TtsRelay
                 /// This is a safety capture, if either of these is being triggered, some changes have been made to the SAPI API, change the map accordingly
                 if (vindex < 0)
                 {
-                    Console.WriteLine("Viseme index bound by 0: " + vindex.ToString() + "\n");
+                    Console.WriteLine("Viseme index bound by 0: {0}", vindex);
                     vindex = 0;
                 }
                 else if (vindex >= sapiVisemeCount)
                 {
-                    Console.WriteLine("Viseme index bound by " + visemeIDMap.Count + ": " + vindex.ToString() + "\n");
+                    Console.WriteLine("Viseme index bound by {0}: {1}", visemeIDMap.Count, vindex.ToString());
                     vindex = visemeIDMap.Count - 1;
                 }
 
                 if (vindex != e.Viseme)
-                    Console.WriteLine("Viseme index truncated from " + e.Viseme.ToString() + " to " + vindex + "\n");
+                    Console.WriteLine("Viseme index truncated from {0} to {1}", e.Viseme, vindex);
 
-                //Console.WriteLine("Reached viseme: " + e.Viseme.ToString() + " aka: " + visemeIDMap[vindex] + " at time: " + e.AudioPosition.TotalSeconds.ToString() + " for duration: " + e.Duration.ToString() + "\n");
-                Console.WriteLine("Total viseme duration: " + this.totalVisemeDuration);
+                Console.WriteLine("Reached viseme: {0} at time: {1} for duration: {2}", e.Viseme, e.AudioPosition.TotalSeconds, e.Duration);  // + " aka: " + visemeIDMap[vindex]
+                Console.WriteLine("Total viseme duration: {0}", totalVisemeDuration);
             }
 
             // We should be able to just take the AudioPosition time, which denotes the point in the request the viseme starts,
@@ -415,8 +416,8 @@ namespace TtsRelay
 
             if (doDebugChecks)
             {
-                Console.WriteLine("Reached phoneme: " + e.Phoneme + " at time: " + e.AudioPosition.TotalSeconds.ToString() + " for duration: " + e.Duration.ToString() + "\n");
-                Console.WriteLine("Total phoneme duration: " + this.totalPhonemeDuration);
+                Console.WriteLine("Reached phoneme: {0} at time: {1} for duration: {2}", e.Phoneme, e.AudioPosition.TotalSeconds, e.Duration);
+                Console.WriteLine("Total phoneme duration: {0}", totalPhonemeDuration);
                 //byte[] b = System.Text.Encoding.Unicode.GetBytes(e.Phoneme.ToCharArray());
                 //Console.WriteLine("Chars for bytes: ");
                 //Console.WriteLine(System.Text.Encoding.ASCII.GetChars(b));
@@ -438,7 +439,7 @@ namespace TtsRelay
 
             if (doDebugChecks)
             {
-                Console.WriteLine("Reached bookmark: " + bookmark + " at time: " + e.AudioPosition.TotalSeconds.ToString() + "\n");
+                Console.WriteLine("Reached bookmark: {0} at time: {1}", bookmark, e.AudioPosition.TotalSeconds);
             }
 
             // The provided AudioPosition is erroneous, so we're mannually keeping track of where we are using aggregate viseme duration.
